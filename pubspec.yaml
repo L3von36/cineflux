@@ -4,7 +4,7 @@ description: >-
   same techniques as the giants: adaptive bitrate streaming, multi-CDN failover,
   buffer-aware quality switching, preload pipelines and live telemetry.
 publish_to: "none"
-version: 1.0.0+1
+version: 2.0.0+6
 
 environment:
   sdk: ">=3.6.0 <4.0.0"
