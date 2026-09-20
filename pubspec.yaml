@@ -1,0 +1,30 @@
+name: cineflux
+description: >-
+  CineFlux — a cinematic multi-platform movie streaming app engineered with the
+  same techniques as the giants: adaptive bitrate streaming, multi-CDN failover,
+  buffer-aware quality switching, preload pipelines and live telemetry.
+publish_to: "none"
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.3.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  # --- Playback engine (mpv-powered, works on ALL 6 platforms) ---
+  media_kit: ^1.1.10
+  media_kit_video: ^1.2.4
+  media_kit_libs_video: ^1.0.4
+  # --- Networking probes / manifest prefetch / CDN latency tests ---
+  http: ^1.2.0
+  # --- Persistence (resume watching, my list, settings) ---
+  shared_preferences: ^2.2.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
