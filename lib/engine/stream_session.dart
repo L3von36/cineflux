@@ -295,9 +295,16 @@ class StreamSession extends ChangeNotifier {
     if (movie!.pack.isHls) {
       if (!_hlsCapSupported) return;
       try {
-        final platform = player.platform;
-        if (platform is NativePlayer) {
-          await platform.setProperty('hls-bitrate', tier == null ? 'no' : '${tier.bitrate}');
+        if (!kIsWeb) {
+          // mpv ladder cap. Resolved dynamically: the web build of media_kit
+          // ships a NativePlayer stub without setProperty.
+          final platform = player.platform;
+          if (platform != null) {
+            await (platform as dynamic).setProperty(
+              'hls-bitrate',
+              tier == null ? 'no' : '${tier.bitrate}',
+            );
+          }
         }
       } catch (_) {
         _hlsCapSupported = false;
