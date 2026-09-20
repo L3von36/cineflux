@@ -43,7 +43,7 @@ class ABREngine {
   ABRDecision decide({
     required double bandwidthBps,
     required BufferMonitor buffer,
-    required String? activeHost,
+    String? activeHost,
     TelemetrySink? sink,
   }) {
     // 0) Manual lock beats the engine.
