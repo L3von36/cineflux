@@ -323,10 +323,10 @@ class _GraphPainter extends CustomPainter {
     final n = points.length;
     final t0 = points.first.ts.millisecondsSinceEpoch.toDouble();
     final t1 = points.last.ts.millisecondsSinceEpoch.toDouble();
-    final tSpan = (t1 - t0).clamp(1.0, double.infinity);
+    final tSpan = (t1 - t0).clamp(1.0, double.infinity).toDouble();
 
-    final maxKbps = points.map((p) => p.kbps).reduce((a, b) => a > b ? a : b).clamp(1.0, double.infinity);
-    final maxMbps = points.map((p) => p.bitrateMbps).reduce((a, b) => a > b ? a : b).clamp(0.5, double.infinity);
+    final maxKbps = points.map((p) => p.kbps).reduce((a, b) => a > b ? a : b).clamp(1.0, double.infinity).toDouble();
+    final maxMbps = points.map((p) => p.bitrateMbps).reduce((a, b) => a > b ? a : b).clamp(0.5, double.infinity).toDouble();
 
     Offset xy(DateTime ts, double v, double max) => Offset(
           ((ts.millisecondsSinceEpoch - t0) / tSpan) * size.width,
@@ -344,14 +344,35 @@ class _GraphPainter extends CustomPainter {
       var started = false;
       for (final p in points) {
         final o = xy(p.ts, get(p), max);
-        started ? path.lineTo(o.dx, o.dy) : path.moveTo(o.dx, o.dy);
-        started = true;
+        if (started) {
+          path.lineTo(o.dx, o.dy);
+        } else {
+          path.moveTo(o.dx, o.dy);
+          started = true;
+        }
       }
       if (fill) {
-        final fillPath = Path.from(path)..lineTo(size.width, size.height)..lineTo(0, size.height)..close();
-        canvas.drawPath(fillPath, Paint()..shader = LinearGradient(colors: [color.withOpacity(.28), color.withOpacity(.02)]).createShader(Offset.zero & size));
+        final fillPath = Path.from(path)
+          ..lineTo(size.width, size.height)
+          ..lineTo(0, size.height)
+          ..close();
+        canvas.drawPath(
+          fillPath,
+          Paint()
+            ..shader = LinearGradient(colors: [
+              color.withOpacity(.28),
+              color.withOpacity(.02),
+            ]).createShader(Offset.zero & size),
+        );
       }
-      canvas.drawPath(path, Paint()..color = color..style = PaintingStyle.stroke..strokeWidth = 2..strokeCap = StrokeCap.round);
+      canvas.drawPath(
+        path,
+        Paint()
+          ..color = color
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 2
+          ..strokeCap = StrokeCap.round,
+      );
     }
 
     series((p) => p.bufferAheadSec, BufferMonitor.maxSec, AppTheme.amber, true);

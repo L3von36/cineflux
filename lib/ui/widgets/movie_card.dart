@@ -62,7 +62,7 @@ class _MovieCardState extends State<MovieCard> {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(3),
                           child: LinearProgressIndicator(
-                            value: widget.progress!.clamp(0, 1),
+                            value: widget.progress!.clamp(0, 1).toDouble(),
                             minHeight: 3.5,
                             backgroundColor: Colors.white.withOpacity(.25),
                             valueColor: const AlwaysStoppedAnimation(AppTheme.cyan),

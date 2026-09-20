@@ -178,7 +178,7 @@ class StreamSession extends ChangeNotifier {
       telemetry.sample(
         kbps: meter.estimateKbps,
         bufferAheadSec: bufferMon.aheadSec,
-        bitrateMbps: (_appliedTier?.bitrate ?? player.state.bitrate ?? 0) / 1_000_000,
+        bitrateMbps: ((_appliedTier?.bitrate ?? player.state.bitrate ?? 0) / 1_000_000).toDouble(),
       );
 
       // Persist progress (resume support).

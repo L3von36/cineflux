@@ -51,7 +51,7 @@ class BufferMonitor {
   }
 
   /// 0 = starving, 1 = luxuriously full.
-  double get health => (smoothedSec / targetSec).clamp(0.0, 1.0);
+  double get health => (smoothedSec / targetSec).clamp(0.0, 1.0).toDouble();
 
   bool get starving => aheadSec <= emergencySec;
   bool get critical => smoothedSec < criticalSec;

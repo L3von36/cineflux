@@ -90,7 +90,7 @@ class ABREngine {
 
     final target = QualityTier.nearestDown(usable.round());
     var idx = QualityTier.ladder.indexOf(target);
-    if (dataSaver) idx = idx.clamp(0, 2);
+    if (dataSaver) idx = idx.clamp(0, 2).toInt();
 
     // 3) HYSTERESIS — anti-flapping.
     final candidate = QualityTier.ladder[idx];

@@ -169,6 +169,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build-android-web-linux
     if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    continue-on-error: true
     permissions:
       pages: write
       id-token: write

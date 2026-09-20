@@ -415,23 +415,25 @@ class _SeekBarState extends State<_SeekBar> {
     final posFrac = _dragFrac ??
         (widget.duration.inMilliseconds == 0
             ? 0.0
-            : (widget.position.inMilliseconds / widget.duration.inMilliseconds).clamp(0.0, 1.0));
+            : (widget.position.inMilliseconds / widget.duration.inMilliseconds).clamp(0.0, 1.0).toDouble());
     final bufFrac = widget.duration.inMilliseconds == 0
         ? 0.0
-        : (widget.buffered.inMilliseconds / widget.duration.inMilliseconds).clamp(0.0, 1.0);
+        : (widget.buffered.inMilliseconds / widget.duration.inMilliseconds).clamp(0.0, 1.0).toDouble();
 
     void seekTo(double frac) {
       widget.onSeek(Duration(milliseconds: (widget.duration.inMilliseconds * frac).round()));
     }
 
+    double fracOf(Offset local) =>
+        (local.dx / (MediaQuery.of(context).size.width - 32)).clamp(0.0, 1.0).toDouble();
+
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTapUp: (d) {
-        final frac = (d.localPosition.dx / (MediaQuery.of(context).size.width - 32)).clamp(0.0, 1.0);
-        seekTo(frac);
+        seekTo(fracOf(d.localPosition));
       },
-      onHorizontalDragStart: (d) => setState(() => _dragFrac = (d.localPosition.dx / (MediaQuery.of(context).size.width - 32)).clamp(0.0, 1.0)),
-      onHorizontalDragUpdate: (d) => setState(() => _dragFrac = (d.localPosition.dx / (MediaQuery.of(context).size.width - 32)).clamp(0.0, 1.0)),
+      onHorizontalDragStart: (d) => setState(() => _dragFrac = fracOf(d.localPosition)),
+      onHorizontalDragUpdate: (d) => setState(() => _dragFrac = fracOf(d.localPosition)),
       onHorizontalDragEnd: (_) {
         if (_dragFrac != null) seekTo(_dragFrac!);
         setState(() => _dragFrac = null);
@@ -470,7 +472,7 @@ class _SeekBarState extends State<_SeekBar> {
                 ),
               ),
               Positioned(
-                left: (MediaQuery.of(context).size.width - 32) * posFrac - 7,
+                left: ((MediaQuery.of(context).size.width - 32) * posFrac - 7).toDouble(),
                 top: -5,
                 child: Container(
                   width: 14,

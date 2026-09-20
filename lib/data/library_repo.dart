@@ -60,7 +60,11 @@ class LibraryRepo {
     final p = await _p;
     final set = await myList();
     final added = !set.contains(id);
-    added ? set.add(id) : set.remove(id);
+    if (added) {
+      set.add(id);
+    } else {
+      set.remove(id);
+    }
     await p.setStringList(_listKey, set.toList());
     return added;
   }
