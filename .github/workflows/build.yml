@@ -158,13 +158,13 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: cineflux-ios-unsigned
-          path: build/ios/iphoneos/cineflux-ios-unsigned.zip
+          path: build/ios/cineflux-ios-unsigned.zip
 
       - name: Upload macOS
         uses: actions/upload-artifact@v4
         with:
           name: cineflux-macos
-          path: build/macos/Build/Products/cineflux-macos.zip
+          path: build/macos/Build/cineflux-macos.zip
 
   # ── Publish web build to GitHub Pages ────────────────────────────────
   deploy-web:
