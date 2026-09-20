@@ -99,11 +99,11 @@ class BandwidthMeter {
       if (res.statusCode >= 500) return 0;
 
       var received = 0;
-      final byteStream = res.stream as Stream<List<int>>;
-      await for (final chunk in byteStream) {
+      // A break out of `await for` auto-cancels the subscription, which
+      // closes the HTTP connection — exactly the cap we want.
+      await for (final chunk in res.stream) {
         received += chunk.length;
         if (received >= maxBytes) {
-          await byteStream.cancel();
           break;
         }
       }
