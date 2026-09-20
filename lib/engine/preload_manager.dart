@@ -46,7 +46,7 @@ class PreloadManager {
     } catch (_) {
       _warmed.remove(url);
       if (!quiet) {
-        telemetry?.log(const EngineEvent(EngineEventType.info, 'Manifest warm-up skipped (edge unreachable)'));
+        telemetry?.log(EngineEvent(EngineEventType.info, 'Manifest warm-up skipped (edge unreachable)'));
       }
       return -1;
     }

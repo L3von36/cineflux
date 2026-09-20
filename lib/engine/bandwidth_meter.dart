@@ -99,10 +99,11 @@ class BandwidthMeter {
       if (res.statusCode >= 500) return 0;
 
       var received = 0;
-      await for (final chunk in res.stream) {
+      final byteStream = res.stream as Stream<List<int>>;
+      await for (final chunk in byteStream) {
         received += chunk.length;
         if (received >= maxBytes) {
-          await res.stream.cancel();
+          await byteStream.cancel();
           break;
         }
       }

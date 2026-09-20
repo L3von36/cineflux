@@ -1,3 +1,5 @@
+import 'dart:ui' show Color;
+
 import 'models.dart';
 
 /// CineFlux catalog.

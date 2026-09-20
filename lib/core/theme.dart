@@ -51,7 +51,6 @@ class AppTheme {
         color: surface,
         elevation: 0,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        side: const BorderSide(color: line),
       ),
       navigationBarTheme: NavigationBarThemeData(
         backgroundColor: bg,

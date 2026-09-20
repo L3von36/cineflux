@@ -21,8 +21,8 @@ class EngineEvent {
   final EngineEventType type;
   final String message;
   final String? detail;
-  const EngineEvent(this.type, this.message, {this.detail, DateTime? ts})
-      : ts = ts ?? DateTime.now();
+  EngineEvent(this.type, this.message, {this.detail, DateTime? timestamp})
+      : ts = timestamp ?? DateTime.now();
 
   String get typeLabel => switch (type) {
         EngineEventType.abrSwitch => 'ABR',

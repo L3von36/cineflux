@@ -118,7 +118,7 @@ class StreamSession extends ChangeNotifier {
       telemetry.log(EngineEvent(EngineEventType.abrSwitch,
           'Starting at ${startTier.label} (${startTier.resolution}) — headroom under ${Fmt.kbps(seedBps)}'));
     } else {
-      telemetry.log(const EngineEvent(EngineEventType.bandwidthSample,
+      telemetry.log(EngineEvent(EngineEventType.bandwidthSample,
           'Bandwidth probe failed — native ABR will carry us'));
     }
 
@@ -178,7 +178,7 @@ class StreamSession extends ChangeNotifier {
       telemetry.sample(
         kbps: meter.estimateKbps,
         bufferAheadSec: bufferMon.aheadSec,
-        bitrateMbps: ((_appliedTier?.bitrate ?? player.state.bitrate ?? 0) / 1_000_000).toDouble(),
+        bitrateMbps: ((_appliedTier?.bitrate ?? 0) / 1_000_000).toDouble(),
       );
 
       // Persist progress (resume support).
@@ -250,7 +250,7 @@ class StreamSession extends ChangeNotifier {
       recovered = true;
       notifyListeners();
     } else {
-      telemetry.log(const EngineEvent(EngineEventType.info,
+      telemetry.log(EngineEvent(EngineEventType.info,
           'No healthier mirror right now — player buffer + native retry are absorbing the outage'));
     }
   }
@@ -270,7 +270,7 @@ class StreamSession extends ChangeNotifier {
       telemetry.log(EngineEvent(EngineEventType.abrSwitch, 'Quality locked to ${tier.label} (${tier.resolution})'));
     } else {
       unawaited(_enforceHlsCap(null));
-      telemetry.log(const EngineEvent(EngineEventType.abrSwitch, 'Back to Auto — ABR engine resumed'));
+      telemetry.log(EngineEvent(EngineEventType.abrSwitch, 'Back to Auto — ABR engine resumed'));
     }
     notifyListeners();
   }
@@ -301,7 +301,7 @@ class StreamSession extends ChangeNotifier {
         }
       } catch (_) {
         _hlsCapSupported = false;
-        telemetry.log(const EngineEvent(EngineEventType.info,
+        telemetry.log(EngineEvent(EngineEventType.info,
             'Rendition capping unavailable on this build — mpv native ABR active'));
       }
     } else {

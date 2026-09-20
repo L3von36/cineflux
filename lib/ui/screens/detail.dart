@@ -76,7 +76,7 @@ class DetailScreen extends StatelessWidget {
                     _meta(Icons.calendar_today_outlined, '${movie.year}', null),
                     _meta(Icons.timer_outlined, movie.isSeries ? 'S${movie.season}:E${movie.episode}' : '${movie.runtimeMin} min', null),
                     _meta(Icons.verified_user_outlined, movie.maturity, null),
-                    for (final g in movie.genres) _meta(Icons.genre_outlined, g, null),
+                    for (final g in movie.genres) _meta(Icons.category_outlined, g, null),
                   ],
                 ),
                 const SizedBox(height: 20),
