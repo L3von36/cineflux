@@ -58,7 +58,7 @@ jobs:
       - name: Package Linux artifact
         run: |
           cd build/linux/x64/release/bundle
-          tar czf ../../../cineflux-linux-x64.tar.gz .
+          tar czf "$GITHUB_WORKSPACE/cineflux-linux-x64.tar.gz" .
 
       - name: Upload Android APK
         uses: actions/upload-artifact@v4
@@ -82,7 +82,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: cineflux-linux-x64
-          path: build/cineflux-linux-x64.tar.gz
+          path: cineflux-linux-x64.tar.gz
 
   # ── Windows desktop ──────────────────────────────────────────────────
   build-windows:
